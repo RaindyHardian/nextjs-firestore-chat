@@ -23,3 +23,7 @@ export const getUserById = async (userId) => {
     return null;
   }
 };
+
+export const getUserRef = (userId) => {
+  return doc(firestore, 'users', userId.toString());
+};
