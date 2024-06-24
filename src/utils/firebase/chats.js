@@ -80,3 +80,29 @@ export const sendMessage = async (chatId, message, userId) => {
     console.error('Error sending message:', error);
   }
 };
+
+export const checkChatRoomCreated = async (participant1Id, participant2Id) => {
+  try {
+    // Create a query against the collection
+    const chatQuery = query(
+      collection(firestore, 'chats'),
+      where('participants', 'array-contains', String(participant1Id))
+    );
+
+    // Get the documents matching the query
+    const chatSnapshot = await getDocs(chatQuery);
+
+    // Check each document to see if it contains the second participant
+    for (const chatDoc of chatSnapshot.docs) {
+      const participants = chatDoc.data().participants;
+      if (participants.includes(String(participant2Id))) {
+        return true; // Existing chat found
+      }
+    }
+
+    return false; // No existing chat found
+  } catch (error) {
+    console.error('Error checking existing chat:', error);
+    return false; // Return false if there's an error
+  }
+};

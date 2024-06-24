@@ -1,4 +1,5 @@
 import { getUserById } from '@/utils/firebase/users';
+import { checkChatRoomCreated } from '@/utils/firebase/chats';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Flex, Spinner, Text } from '@chakra-ui/react';
@@ -15,7 +16,12 @@ const ChatsPage = () => {
     try {
       const data = await getUserById(userId);
       setUser(data);
+   
+      
+      const a = await checkChatRoomCreated(2, 11);
+      console.log("a", a);
     } catch (error) {
+      console.log("test", error)
     } finally {
       setInitLoading(false);
     }
