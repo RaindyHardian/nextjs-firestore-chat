@@ -18,7 +18,7 @@ const ChatsPage = () => {
       setUser(data);
    
       
-      const a = await checkChatRoomCreated(2, 11);
+      const a = await checkChatRoomCreated(2, 1);
       console.log("a", a);
     } catch (error) {
       console.log("test", error)

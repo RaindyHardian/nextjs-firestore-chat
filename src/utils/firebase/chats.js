@@ -96,7 +96,8 @@ export const checkChatRoomCreated = async (participant1Id, participant2Id) => {
     for (const chatDoc of chatSnapshot.docs) {
       const participants = chatDoc.data().participants;
       if (participants.includes(String(participant2Id))) {
-        return true; // Existing chat found
+        // found chat room ID
+        return chatDoc.id; // Existing chat found
       }
     }
 
