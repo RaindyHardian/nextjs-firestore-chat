@@ -72,7 +72,7 @@ export const sendMessage = async (chatId, message, userId) => {
   try {
     const newMessageRef = await addDoc(messagesRef, newMessage);
     await updateDoc(doc(firestore, 'chats', chatId), {
-      latestMessage: { ...newMessage, id: newMessageRef.id, isRead: false },
+      latestMessage: { ...newMessage, messageId: newMessageRef.id, isRead: false },
     });
 
     console.log('Message sent successfully!');
