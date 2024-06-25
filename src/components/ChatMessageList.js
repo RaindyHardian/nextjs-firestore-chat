@@ -8,8 +8,9 @@ import {
 } from 'firebase/firestore';
 import { firestore } from '@/utils/firebase/firebase';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { readLatestMessage } from '@/utils/firebase/chats';
 
-const ChatMessageList = ({ chatId, currentUser }) => {
+const ChatMessageList = ({ selectedRoom, chatId, currentUser }) => {
   const messageListRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [firstInit, setFirstInit] = useState(true);
@@ -62,7 +63,7 @@ const ChatMessageList = ({ chatId, currentUser }) => {
   return (
     <Box id="message-list" overflow="auto" flex="1" py="10px" px="10px">
       <Flex direction="column" gap="10px">
-        {messages.map((message) => (
+        {messages.map((message, index) => (
           <Flex
             key={message.id}
             justifyContent={
@@ -83,6 +84,17 @@ const ChatMessageList = ({ chatId, currentUser }) => {
                 paddingY="10px"
                 paddingX="15px"
                 w="max-content"
+                onClick={() => {
+                  if (
+                    selectedRoom?.latestMessage?.created_by === currentUser?.id
+                  ) {
+                    return;
+                  }
+
+                  if (index === messages?.length - 1) {
+                    readLatestMessage(chatId, selectedRoom?.latestMessage);
+                  }
+                }}
               >
                 {message?.message}
               </Flex>

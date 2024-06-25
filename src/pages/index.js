@@ -40,7 +40,7 @@ export default function Home() {
               padding="5px"
             >
               <Text>id: {user.id}</Text>
-              <Text>username: {user.username}</Text>
+              <Text>username: {user.username || user.store_name}</Text>
             </Box>
           </Link>
         ))}

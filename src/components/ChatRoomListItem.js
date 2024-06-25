@@ -1,4 +1,4 @@
-import { Avatar, Divider, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Box, Divider, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
 const ChatRoomListItem = ({
@@ -31,22 +31,43 @@ const ChatRoomListItem = ({
         alignItems={'center'}
         onClick={() => handleClickRoom({ room })}
       >
-        <Avatar name={conversationPartner.username} src="" />
+        <Avatar
+          name={conversationPartner.username || conversationPartner.store_name}
+          src=""
+        />
         <Flex
           h="100%"
           direction="column"
           overflow="hidden"
           justifyContent="center"
+          width="100%"
         >
-          <Text
-            fontWeight="semibold"
-            whiteSpace="nowrap"
-            textOverflow="ellipsis"
-            overflow="hidden"
+          <Flex
             w="100%"
+            direction="row"
+            overflow="hidden"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            {conversationPartner.username}
-          </Text>
+            <Text
+              fontWeight="semibold"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+              overflow="hidden"
+              w="100%"
+            >
+              {conversationPartner.username || conversationPartner.store_name}
+            </Text>
+            {latestMessage && !latestMessage.isRead && (
+              <Box
+                flex="none"
+                width="10px"
+                height="10px"
+                backgroundColor="#06ab52"
+                borderRadius="100px"
+              />
+            )}
+          </Flex>
           {latestMessage && (
             <Text
               whiteSpace="nowrap"

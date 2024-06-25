@@ -16,12 +16,11 @@ const ChatsPage = () => {
     try {
       const data = await getUserById(userId);
       setUser(data);
-   
-      
+
       const a = await checkChatRoomCreated(2, 1);
-      console.log("a", a);
+      console.log('a', a);
     } catch (error) {
-      console.log("test", error)
+      console.log('test', error);
     } finally {
       setInitLoading(false);
     }
@@ -58,7 +57,7 @@ const ChatsPage = () => {
           </Link>
           <Text>Current User:</Text>
           <Text>id: {user?.id}</Text>
-          <Text>username: {user?.username}</Text>
+          <Text>username: {user?.username || user?.store_name}</Text>
         </Box>
         <ChatBox user={user} />
       </Flex>

@@ -28,13 +28,22 @@ const ChatRoom = ({ currentUser, selectedRoom }) => {
         borderBottom="1px solid"
         borderColor="gray.800"
       >
-        <Avatar name={conversationPartner.username} src="" />
+        <Avatar
+          name={conversationPartner.username || conversationPartner.store_name}
+          src=""
+        />
         <Flex h="100%" alignItems="center">
-          <Text fontWeight="semibold">{conversationPartner.username}</Text>
+          <Text fontWeight="semibold">
+            {conversationPartner.username || conversationPartner.store_name}
+          </Text>
         </Flex>
       </Flex>
       <Flex direction="column" overflow="hidden" flexGrow="1">
-        <ChatMessageList chatId={selectedRoom.id} currentUser={currentUser} />
+        <ChatMessageList
+          selectedRoom={selectedRoom}
+          chatId={selectedRoom.id}
+          currentUser={currentUser}
+        />
         <ChatMessageInput chatId={selectedRoom.id} currentUser={currentUser} />
       </Flex>
     </Flex>

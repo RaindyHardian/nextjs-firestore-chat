@@ -70,9 +70,9 @@ export const sendMessage = async (chatId, message, userId) => {
   };
 
   try {
-    await addDoc(messagesRef, newMessage);
+    const newMessageRef = await addDoc(messagesRef, newMessage);
     await updateDoc(doc(firestore, 'chats', chatId), {
-      latestMessage: newMessage,
+      latestMessage: { ...newMessage, id: newMessageRef.id, isRead: false },
     });
 
     console.log('Message sent successfully!');
@@ -105,5 +105,17 @@ export const checkChatRoomCreated = async (participant1Id, participant2Id) => {
   } catch (error) {
     console.error('Error checking existing chat:', error);
     return false; // Return false if there's an error
+  }
+};
+
+export const readLatestMessage = async (chatId, latestMessage = {}) => {
+  try {
+    await updateDoc(doc(firestore, 'chats', chatId), {
+      latestMessage: { ...latestMessage, isRead: true },
+    });
+
+    console.log('Message read successfully!');
+  } catch (error) {
+    console.error('Error read message:', error);
   }
 };
