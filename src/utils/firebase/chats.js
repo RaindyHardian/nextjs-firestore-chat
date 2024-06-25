@@ -72,7 +72,7 @@ export const sendMessage = async (chatId, message, userId) => {
   try {
     const newMessageRef = await addDoc(messagesRef, newMessage);
     await updateDoc(doc(firestore, 'chats', chatId), {
-      latestMessage: { ...newMessage, messageId: newMessageRef.id, isRead: false },
+      latestMessage: { ...newMessage, message_id: newMessageRef.id, is_read: false },
     });
 
     console.log('Message sent successfully!');
@@ -111,7 +111,7 @@ export const checkChatRoomCreated = async (participant1Id, participant2Id) => {
 export const readLatestMessage = async (chatId, latestMessage = {}) => {
   try {
     await updateDoc(doc(firestore, 'chats', chatId), {
-      latestMessage: { ...latestMessage, isRead: true },
+      latestMessage: { ...latestMessage, is_read: true },
     });
 
     console.log('Message read successfully!');

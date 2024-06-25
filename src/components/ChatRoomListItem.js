@@ -58,7 +58,7 @@ const ChatRoomListItem = ({
             >
               {conversationPartner.username || conversationPartner.store_name}
             </Text>
-            {latestMessage && !latestMessage.isRead && (
+            {latestMessage && !latestMessage.is_read && (
               <Box
                 flex="none"
                 width="10px"
